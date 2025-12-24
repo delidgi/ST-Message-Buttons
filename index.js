@@ -6,20 +6,15 @@ function sendMessageToChat(text) {
     const sendBtn = document.querySelector('#send_but');
     
     if (textarea && sendBtn) {
-        
         textarea.value = text;
-        
-        
         textarea.dispatchEvent(new Event('input', { bubbles: true }));
         
-       
         setTimeout(() => {
             sendBtn.click();
-        }, 50);
+        }, 100);
         
         console.log(`[${extensionName}] Отправлено: ${text}`);
         
-       
         if (typeof toastr !== 'undefined') {
             toastr.info(`➤ ${text}`, '', { 
                 timeOut: 1500,
@@ -51,38 +46,68 @@ function insertMessageToChat(text) {
 }
 
 
-function initButtonListeners() {
+function handleButtonAction(element) {
+    const sendText = element.getAttribute('data-st-send');
+    const insertText = element.getAttribute('data-st-insert');
+    
+    if (sendText && sendText.trim()) {
+        sendMessageToChat(sendText.trim());
+        return true;
+    }
+    
+    if (insertText && insertText.trim()) {
+        insertMessageToChat(insertText.trim());
+        return true;
+    }
+    
+    return false;
+}
 
-    $(document).on('click', '[data-st-send]', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const text = $(this).attr('data-st-send');
-        if (text && text.trim()) {
-            sendMessageToChat(text.trim());
+
+function initButtonListeners() {
+   
+    let touchHandled = false;
+    
+   
+    document.addEventListener('touchstart', function(e) {
+        const button = e.target.closest('[data-st-send], [data-st-insert]');
+        if (button) {
+            touchHandled = true;
+           
+            button.style.opacity = '0.7';
         }
-    });
+    }, { passive: true });
     
-    
-    $(document).on('click', '[data-st-insert]', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const text = $(this).attr('data-st-insert');
-        if (text && text.trim()) {
-            insertMessageToChat(text.trim());
-        }
-    });
-    
-    
-    $(document).on('touchend', '[data-st-send], [data-st-insert]', function(e) {
-        // Предотвращаем двойное срабатывание на мобильных
-        if (e.cancelable) {
+    document.addEventListener('touchend', function(e) {
+        const button = e.target.closest('[data-st-send], [data-st-insert]');
+        if (button) {
             e.preventDefault();
+            button.style.opacity = '1';
+            handleButtonAction(button);
+            
+           
+            setTimeout(() => {
+                touchHandled = false;
+            }, 300);
         }
-    });
+    }, { passive: false });
     
-    console.log(`[${extensionName}] Слушатели кнопок активированы`);
+   
+    document.addEventListener('click', function(e) {
+        if (touchHandled) {
+            touchHandled = false;
+            return;
+        }
+        
+        const button = e.target.closest('[data-st-send], [data-st-insert]');
+        if (button) {
+            e.preventDefault();
+            e.stopPropagation();
+            handleButtonAction(button);
+        }
+    }, true);
+    
+    console.log(`[${extensionName}] Слушатели кнопок активированы (touch + click)`);
 }
 
 
