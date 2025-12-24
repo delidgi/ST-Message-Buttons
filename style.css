@@ -1,0 +1,159 @@
+/**
+ * ST-Message-Buttons Styles
+ * Стили для кнопок действий в сообщениях
+ */
+
+/* === БАЗОВЫЕ СТИЛИ КНОПОК === */
+[data-st-send],
+[data-st-insert] {
+    cursor: pointer !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+/* Минимальный размер для тач-устройств */
+[data-st-send],
+[data-st-insert] {
+    min-width: 44px;
+    min-height: 44px;
+}
+
+/* Эффект при наведении */
+[data-st-send]:hover,
+[data-st-insert]:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+/* Эффект при нажатии */
+[data-st-send]:active,
+[data-st-insert]:active {
+    transform: translateY(0);
+    filter: brightness(0.95);
+}
+
+/* === ГОТОВЫЕ КЛАССЫ ДЛЯ КНОПОК === */
+
+/* Основная кнопка действия */
+.st-btn {
+    background: var(--SmartThemeBlurTintColor, rgba(50, 50, 50, 0.9)) !important;
+    color: var(--SmartThemeBodyColor, #fff) !important;
+    border: 1px solid var(--SmartThemeBorderColor, rgba(255, 255, 255, 0.2)) !important;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 0.9em;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.st-btn:hover {
+    background: var(--SmartThemeBorderColor, rgba(80, 80, 80, 0.95)) !important;
+    color: var(--SmartThemeQuoteColor, #ffd700) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.st-btn:active {
+    transform: translateY(0);
+}
+
+/* Маленькая кнопка */
+.st-btn-sm {
+    padding: 6px 12px;
+    font-size: 0.8em;
+    min-width: 36px;
+    min-height: 36px;
+}
+
+/* Большая кнопка */
+.st-btn-lg {
+    padding: 14px 24px;
+    font-size: 1em;
+}
+
+/* Кнопка на всю ширину */
+.st-btn-block {
+    width: 100%;
+    display: flex;
+}
+
+/* === ЦВЕТОВЫЕ ВАРИАНТЫ === */
+
+/* Основной акцент */
+.st-btn-primary {
+    background: linear-gradient(135deg, rgba(100, 50, 150, 0.9), rgba(80, 40, 120, 0.95)) !important;
+    border-color: rgba(150, 100, 200, 0.5) !important;
+}
+
+.st-btn-primary:hover {
+    background: linear-gradient(135deg, rgba(120, 60, 170, 0.95), rgba(100, 50, 140, 1)) !important;
+}
+
+/* Успех / подтверждение */
+.st-btn-success {
+    background: linear-gradient(135deg, rgba(40, 120, 60, 0.9), rgba(30, 100, 50, 0.95)) !important;
+    border-color: rgba(80, 180, 100, 0.5) !important;
+}
+
+.st-btn-success:hover {
+    background: linear-gradient(135deg, rgba(50, 140, 70, 0.95), rgba(40, 120, 60, 1)) !important;
+}
+
+/* Опасность / отмена */
+.st-btn-danger {
+    background: linear-gradient(135deg, rgba(150, 40, 50, 0.9), rgba(120, 30, 40, 0.95)) !important;
+    border-color: rgba(200, 80, 90, 0.5) !important;
+}
+
+.st-btn-danger:hover {
+    background: linear-gradient(135deg, rgba(170, 50, 60, 0.95), rgba(140, 40, 50, 1)) !important;
+}
+
+/* Нейтральный / инфо */
+.st-btn-info {
+    background: linear-gradient(135deg, rgba(40, 100, 140, 0.9), rgba(30, 80, 120, 0.95)) !important;
+    border-color: rgba(80, 150, 200, 0.5) !important;
+}
+
+.st-btn-info:hover {
+    background: linear-gradient(135deg, rgba(50, 120, 160, 0.95), rgba(40, 100, 140, 1)) !important;
+}
+
+/* === ГРУППА КНОПОК === */
+.st-btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.st-btn-group-vertical {
+    flex-direction: column;
+}
+
+/* === ИКОНКИ В КНОПКАХ === */
+.st-btn i,
+.st-btn svg {
+    font-size: 1.1em;
+}
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 480px) {
+    .st-btn {
+        padding: 12px 14px;
+        font-size: 0.85em;
+    }
+    
+    .st-btn-group {
+        gap: 6px;
+    }
+}
