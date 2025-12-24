@@ -4,7 +4,7 @@
 
 ## Установка
 
-
+https://github.com/delidgi/ST-Message-Buttons
 
 ## Использование в тоглах/промптах
 
